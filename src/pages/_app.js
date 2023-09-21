@@ -10,18 +10,15 @@ import { wrapper } from 'src/store/storeWrapper';
 import 'simplebar-react/dist/simplebar.min.css';
 
 const clientSideEmotionCache = createEmotionCache();
-
-function App ({Component, emotionCache = clientSideEmotionCache, pageProps}) {
-
+function App({ Component, emotionCache = clientSideEmotionCache, pageProps }) {
   const getLayout = Component.getLayout ?? ((page) => page);
-
   const theme = createTheme();
 
   return (
     <CacheProvider value={emotionCache}>
       <Head>
         <title>
-          Devias Kit
+          MoMagic
         </title>
         <meta
           name="viewport"
@@ -29,10 +26,10 @@ function App ({Component, emotionCache = clientSideEmotionCache, pageProps}) {
         />
       </Head>
       <LocalizationProvider dateAdapter={AdapterDateFns}>
-          <ThemeProvider theme={theme}>
-            <CssBaseline />
-            {getLayout (<Component {...pageProps} />)}
-          </ThemeProvider>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          {getLayout(<Component {...pageProps} />)}
+        </ThemeProvider>
       </LocalizationProvider>
     </CacheProvider>
   );

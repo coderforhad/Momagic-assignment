@@ -7,7 +7,7 @@ const Page = () => (
   <>
     <Head>
       <title>
-        404 | Devias Kit
+        404 | MoMagic
       </title>
     </Head>
     <Box

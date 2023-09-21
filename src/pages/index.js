@@ -6,7 +6,7 @@ import Category from "src/components/Category";
 const Page = () => (
   <>
     <Head>
-      <title>Overview | Devias Kit</title>
+      <title>Home | MoMagic</title>
     </Head>
     <img src="images/booksBanner1.jpeg" />
     <Box

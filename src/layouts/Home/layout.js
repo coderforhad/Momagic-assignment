@@ -5,15 +5,10 @@ import { SideNav } from './side-nav';
 import { TopNav } from './top-nav';
 import Footer from './footer';
 
-// const SIDE_NAV_WIDTH = 280;
-
 const LayoutRoot = styled('div')(({ theme }) => ({
   display: 'flex',
   flex: '1 1 auto',
   maxWidth: '100%',
-  // [theme.breakpoints.up('lg')]: {
-  //   paddingLeft: SIDE_NAV_WIDTH
-  // }
 }));
 
 const LayoutContainer = styled('div')({
@@ -41,7 +36,7 @@ export const Layout = ((props) => {
     () => {
       handlePathnameChange();
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    
     [pathname]
   );
 
