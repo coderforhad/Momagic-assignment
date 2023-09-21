@@ -20,7 +20,7 @@ function App({ Component, emotionCache = clientSideEmotionCache, pageProps }) {
 
   const theme = createTheme();
   const [getAccessToken] = useGetAccessTokenMutation();
-  const [getThemeData] = useGetThemeInfoMutation()
+  const [getThemeData, {data: themeData}] = useGetThemeInfoMutation()
 
   useEffect(() => {
     getAccessToken()
@@ -29,6 +29,8 @@ function App({ Component, emotionCache = clientSideEmotionCache, pageProps }) {
   useEffect(() => {
     getThemeData()
   }, [])
+
+  console.log("From APP", themeData)
 
   return (
     <CacheProvider value={emotionCache}>
