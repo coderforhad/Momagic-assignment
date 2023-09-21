@@ -3,8 +3,8 @@ import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import { Grid } from "@mui/material";
-import { useGetAccessTokenMutation } from "src/features/auth/authApi";
-import { useGetThemeInfoMutation } from "src/features/themeData/themeDataApi";
+
+
 import { useEffect, useState } from "react";
 
 
@@ -37,18 +37,6 @@ export default function Category() {
   //   getthemeData()
   // }, [accessToken])
 
-  const [getAccessToken] = useGetAccessTokenMutation();
-  const [getThemeData, {data: fetchData}] = useGetThemeInfoMutation()
-
-  useEffect(() => {
-    getAccessToken()
-  }, [])
-
-  useEffect(() => {
-    getThemeData()
-  }, [])
-
-  console.log('fetchData', fetchData)
   
   return (
     <Card>

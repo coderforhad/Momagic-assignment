@@ -5,6 +5,7 @@ import { alpha } from "@mui/material/styles";
 import SearchIcon from "@mui/icons-material/Search";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { useTheme } from "@mui/system";
+import { useSelector } from "react-redux";
 
 const SIDE_NAV_WIDTH = 0;
 const TOP_NAV_HEIGHT = 64;

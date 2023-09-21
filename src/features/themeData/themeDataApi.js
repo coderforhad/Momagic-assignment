@@ -1,4 +1,5 @@
 import { apiSlice } from "../api/apiSlice";
+import { setThemeData } from "./themeDataSlice";
 
 export const themeApi = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
@@ -8,6 +9,14 @@ export const themeApi = apiSlice.injectEndpoints({
                 method: "POST",
                 body: data,
             }),
+            async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+                try {
+                    const result = await queryFulfilled;
+                    dispatch(setThemeData(result.data))
+                } catch (err) {
+                    //nothing
+                }
+            }
         }),
     })
 })

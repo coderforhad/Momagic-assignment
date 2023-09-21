@@ -8,11 +8,27 @@ import { createTheme } from 'src/theme';
 import { createEmotionCache } from 'src/utils/create-emotion-cache';
 import { wrapper } from 'src/store/storeWrapper';
 import 'simplebar-react/dist/simplebar.min.css';
+import { useGetAccessTokenMutation } from "src/features/auth/authApi";
+import { useGetThemeInfoMutation } from "src/features/themeData/themeDataApi";
+import { useEffect } from 'react';
+import { Provider } from 'react-redux';
+import { store } from "../store/store"
 
 const clientSideEmotionCache = createEmotionCache();
 function App({ Component, emotionCache = clientSideEmotionCache, pageProps }) {
   const getLayout = Component.getLayout ?? ((page) => page);
+
   const theme = createTheme();
+  const [getAccessToken] = useGetAccessTokenMutation();
+  const [getThemeData] = useGetThemeInfoMutation()
+
+  useEffect(() => {
+    getAccessToken()
+  }, [])
+
+  useEffect(() => {
+    getThemeData()
+  }, [])
 
   return (
     <CacheProvider value={emotionCache}>
@@ -28,7 +44,9 @@ function App({ Component, emotionCache = clientSideEmotionCache, pageProps }) {
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <ThemeProvider theme={theme}>
           <CssBaseline />
-          {getLayout(<Component {...pageProps} />)}
+          <Provider store={store}>
+            {getLayout(<Component {...pageProps} />)}
+          </Provider>
         </ThemeProvider>
       </LocalizationProvider>
     </CacheProvider>
