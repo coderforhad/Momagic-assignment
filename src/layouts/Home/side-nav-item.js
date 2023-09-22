@@ -54,7 +54,7 @@ export const SideNavItem = (props) => {
               })
             }}
           >
-            {icon}
+            <img height={30} width={30} src={icon} />
           </Box>
         )}
         <Box

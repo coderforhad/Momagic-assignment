@@ -46,6 +46,8 @@ export const Layout = ((props) => {
     [pathname]
   );
 
+  console.log(themeData)
+
   return (
     <>
       <TopNav primaryMenu={themeData?.data?.header?.body?.primary_menu} onNavOpen={() => setOpenNav(true)} />
@@ -53,6 +55,7 @@ export const Layout = ((props) => {
         onClose={() => setOpenNav(false)}
         open={openNav}
         setOpenNav={setOpenNav}
+        sideMenu={themeData?.data?.theme_info?.category_1JXLtF?.list}
       />
       <LayoutRoot>
         <LayoutContainer>

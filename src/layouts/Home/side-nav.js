@@ -7,7 +7,7 @@ import { SideNavItem } from "./side-nav-item";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 
 export const SideNav = (props) => {
-  const { open, onClose, setOpenNav} = props;
+  const { open, onClose, setOpenNav, sideMenu} = props;
   const pathname = usePathname();
 
   const content = (
@@ -62,18 +62,18 @@ export const SideNav = (props) => {
               m: 0,
             }}
           >
-            {items.map((item) => {
+            {sideMenu?.map((item) => {
               const active = item.path ? pathname === item.path : false;
 
               return (
                 <SideNavItem
                   active={active}
-                  disabled={item.disabled}
-                  external={item.external}
+                  // disabled={item.disabled}
+                  // external={item.external}
                   icon={item.icon}
-                  key={item.title}
+                  key={item.id}
                   path={item.path}
-                  title={item.title}
+                  title={item.name}
                 />
               );
             })}
