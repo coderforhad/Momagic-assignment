@@ -1,9 +1,10 @@
 import PropTypes from "prop-types";
 import Bars3Icon from "@heroicons/react/24/solid/Bars3Icon";
-import { Box, IconButton, Stack, SvgIcon, Typography, useMediaQuery, Button} from "@mui/material";
+import { Box, IconButton, Stack, SvgIcon, Typography, useMediaQuery, Button } from "@mui/material";
 import { alpha } from "@mui/material/styles";
 import SearchIcon from "@mui/icons-material/Search";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import Tooltip from '@mui/material/Tooltip';
 import { useTheme } from "@mui/system";
 import { useRouter } from "next/router";
 
@@ -14,9 +15,10 @@ export const TopNav = (props) => {
   const { onNavOpen, primaryMenu } = props;
   const theme = useTheme();
   const lg = useMediaQuery(theme.breakpoints.up("lg"));
-  console.log('header', primaryMenu)
   const Router = useRouter()
-  const handleClick =(menu)=> {menu?.id ? Router.push(menu.path): ""}
+  const menuItems = primaryMenu?.header?.body?.primary_menu
+  const logo = primaryMenu?.logo?.light_logo;
+  const handleClick = (menu) => { menu?.id ? Router.push(menu.path) : "" }
 
   return (
     <>
@@ -52,11 +54,13 @@ export const TopNav = (props) => {
                 <Bars3Icon />
               </SvgIcon>
             </IconButton>
-            <Typography>Momagic</Typography>
+            <img height={50} width={200} src={logo} />
           </Stack>
           <Stack alignItems="center" direction="row" spacing={2}>
-            {lg ? (primaryMenu?.map((menu, i) => (<div key={menu?.id}>
-              <Button onClick={()=>handleClick(menu)}>{menu?.text}</Button>
+            {lg ? (menuItems?.map((menu, i) => (<div key={menu?.id}>
+              <Tooltip title={menu?.text}>
+                <Button onClick={() => handleClick(menu)}>{menu?.text}</Button>
+              </Tooltip>
             </div>))) : ""}
             <SearchIcon />
             <AddShoppingCartIcon />
