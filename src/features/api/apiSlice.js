@@ -5,9 +5,10 @@ export const apiSlice = createApi({
     baseQuery: fetchBaseQuery({
         baseUrl: "https://api.webmanza.com",
         prepareHeaders: async (headers, { getState, endpoint }) => {
-            const token = localStorage.getItem("accessToken").replace(/"/g, '')
+            const token = localStorage.getItem("accessToken")
             if (token) {
-                headers.set("Authorization", `Bearer ${token}`)
+                const accessToken = token.slice(1, -1)
+                headers.set("Authorization", `Bearer ${accessToken}`)
             }
             headers.set("Origin", "bookshop.webmanza.com");
             return headers;
