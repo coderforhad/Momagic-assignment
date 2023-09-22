@@ -16,11 +16,9 @@ import { store } from "../store/store"
 
 const clientSideEmotionCache = createEmotionCache();
 function App({ Component, emotionCache = clientSideEmotionCache, pageProps }) {
-  const getLayout = Component.getLayout ?? ((page) => page);
-
   const theme = createTheme();
   const [getAccessToken] = useGetAccessTokenMutation();
-  const [getThemeData, {data: themeData}] = useGetThemeInfoMutation()
+  const [getThemeData, { data: themeData }] = useGetThemeInfoMutation()
 
   useEffect(() => {
     getAccessToken()
@@ -29,8 +27,6 @@ function App({ Component, emotionCache = clientSideEmotionCache, pageProps }) {
   useEffect(() => {
     getThemeData()
   }, [])
-
-  console.log("From APP", themeData)
 
   return (
     <CacheProvider value={emotionCache}>
@@ -47,7 +43,7 @@ function App({ Component, emotionCache = clientSideEmotionCache, pageProps }) {
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <Provider store={store}>
-            {getLayout(<Component {...pageProps} />)}
+            <Component {...pageProps} />
           </Provider>
         </ThemeProvider>
       </LocalizationProvider>
