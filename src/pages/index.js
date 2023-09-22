@@ -1,24 +1,36 @@
 import Head from "next/head";
-import { Box, Button, Unstable_Grid2 as Grid, Typography, Divider } from "@mui/material";
+import { Box, Button, Unstable_Grid2 as Grid, Typography } from "@mui/material";
 import { Layout as DashboardLayout } from "src/layouts/Home/layout";
 import Category from "src/components/category/Category";
 import ProductCard from "src/components/ProductCard";
 import NewArrival from "src/components/new-arrivals/NewArrivals";
 import TagSection from "src/components/tag-section/TagSection";
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { useDraggable } from "react-use-draggable-scroll";
+import { useGetThemeInfoMutation } from "src/features/themeData/themeDataApi";
 
 const Page = () => {
-
+  const [getThemeData, { data: themeData }] = useGetThemeInfoMutation()
   const ref = useRef();
   const { events } = useDraggable(ref);
+
+  useEffect(() => {
+    getThemeData()
+  }, [getThemeData])
+
+  const banners = themeData?.data?.theme_info?.slider_g5BCN7?.list
+  console.log("From Index", banners)
 
   return (
     <DashboardLayout>
       <Head>
         <title>Home | MoMagic</title>
       </Head>
-      <img src="images/booksBanner1.jpeg" />
+      {banners?.map((banner, i) => (
+        <Grid key={i} >
+          <img src={banner?.banner_url || "images/booksBanner1.jpeg"} />
+        </Grid>
+      ))}
       <Box
         component="main"
         sx={{
@@ -51,8 +63,8 @@ const Page = () => {
               <Grid
                 sx={{
                   display: "flex", overflowY: "scroll", width: "75%", height: "530px", margin: "10px", "::-webkit-scrollbar": {
-                    display: "none", 
-                  }, border:"1px solid gray"
+                    display: "none",
+                  }, border: "1px solid gray"
                 }}
                 ref={ref}
                 {...events}
