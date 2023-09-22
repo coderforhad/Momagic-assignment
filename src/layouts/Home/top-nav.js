@@ -1,19 +1,22 @@
 import PropTypes from "prop-types";
 import Bars3Icon from "@heroicons/react/24/solid/Bars3Icon";
-import { Box, IconButton, Stack, SvgIcon, Typography, useMediaQuery } from "@mui/material";
+import { Box, IconButton, Stack, SvgIcon, Typography, useMediaQuery, Button} from "@mui/material";
 import { alpha } from "@mui/material/styles";
 import SearchIcon from "@mui/icons-material/Search";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { useTheme } from "@mui/system";
-import { useSelector } from "react-redux";
+import { useRouter } from "next/router";
 
 const SIDE_NAV_WIDTH = 0;
 const TOP_NAV_HEIGHT = 64;
 
 export const TopNav = (props) => {
-  const { onNavOpen } = props;
+  const { onNavOpen, primaryMenu } = props;
   const theme = useTheme();
   const lg = useMediaQuery(theme.breakpoints.up("lg"));
+  console.log('header', primaryMenu)
+  const Router = useRouter()
+  const handleClick =(menu)=> {menu?.id ? Router.push(menu.path): ""}
 
   return (
     <>
@@ -52,15 +55,9 @@ export const TopNav = (props) => {
             <Typography>Momagic</Typography>
           </Stack>
           <Stack alignItems="center" direction="row" spacing={2}>
-            {lg ? (
-              <>
-                <Typography>About Us</Typography>
-                <Typography>Contact Us</Typography>
-                <Typography>FAQ</Typography>
-              </>
-            ) : (
-              ""
-            )}
+            {lg ? (primaryMenu?.map((menu, i) => (<div key={menu?.id}>
+              <Button onClick={()=>handleClick(menu)}>{menu?.text}</Button>
+            </div>))) : ""}
             <SearchIcon />
             <AddShoppingCartIcon />
           </Stack>

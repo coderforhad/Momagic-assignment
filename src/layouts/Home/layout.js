@@ -4,6 +4,7 @@ import { styled } from '@mui/material/styles';
 import { SideNav } from './side-nav';
 import { TopNav } from './top-nav';
 import Footer from './footer';
+import { useGetThemeInfoMutation } from "src/features/themeData/themeDataApi";
 
 const LayoutRoot = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -19,6 +20,7 @@ const LayoutContainer = styled('div')({
 });
 
 export const Layout = ((props) => {
+  const [getThemeData, { data: themeData }] = useGetThemeInfoMutation()
   const { children } = props;
   const pathname = usePathname();
   const [openNav, setOpenNav] = useState(false);
@@ -32,17 +34,21 @@ export const Layout = ((props) => {
     [openNav]
   );
 
+  useEffect(() => {
+    getThemeData()
+  }, [getThemeData])
+
   useEffect(
     () => {
       handlePathnameChange();
     },
-    
+
     [pathname]
   );
 
   return (
     <>
-      <TopNav onNavOpen={() => setOpenNav(true)} />
+      <TopNav primaryMenu={themeData?.data?.header?.body?.primary_menu} onNavOpen={() => setOpenNav(true)} />
       <SideNav
         onClose={() => setOpenNav(false)}
         open={openNav}
