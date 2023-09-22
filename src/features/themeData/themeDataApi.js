@@ -18,7 +18,13 @@ export const themeApi = apiSlice.injectEndpoints({
                 }
             }
         }),
+        getProductbyCategory: builder.query({
+            query: (data) => ({
+                url: "/product/v2/list/by/category/858/?page=1&items_per_page=10",
+                body: data,
+            }),
+        }),
     })
 })
 
-export const { useGetThemeInfoMutation } = themeApi; 
+export const { useGetThemeInfoMutation, useGetProductbyCategoryQuery } = themeApi; 

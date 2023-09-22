@@ -1,39 +1,30 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import { ImageButton, ImageSrc, ImageBackdrop, Image, ImageMarked } from './Style';
+import * as React from "react";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import { ImageButton, ImageSrc, ImageBackdrop, Image, ImageMarked } from "./Style";
 
-const images = [
-  {
-    url: 'https://source.unsplash.com/random/',
-    title: 'Breakfast',
-  },
-  {
-    url: 'https://source.unsplash.com/random/',
-    title: 'Burgers',
-  },
-  {
-    url: 'https://source.unsplash.com/random/',
-    title: 'Camera',
-  },
-  {
-    url: 'https://source.unsplash.com/random/',
-    title: 'Camera',
-  },
-];
-
-export default function Category() {
+export default function Category(props) {
+  const { categoryData } = props;
   return (
-    <Box sx={{ display: 'flex', flexWrap: 'wrap', minWidth: 300, width: '100%', justifyContent: "space-between" }}>
-      {images.map((image) => (
+    <Box
+      sx={{
+        display: "flex",
+        flexWrap: "wrap",
+        minWidth: 300,
+        width: "100%",
+        justifyContent: "space-between",
+        gap: "20px",
+      }}
+    >
+      {categoryData?.map((image) => (
         <ImageButton
           focusRipple
-          key={image.title}
+          key={image?.id}
           style={{
             width: "24%",
           }}
         >
-          <ImageSrc style={{ backgroundImage: `url(${image.url})` }} />
+          <ImageSrc style={{ backgroundImage: `url(${image.thumb})` }} />
           <ImageBackdrop className="MuiImageBackdrop-root" />
           <Image>
             <Typography
@@ -41,13 +32,13 @@ export default function Category() {
               variant="subtitle1"
               color="inherit"
               sx={{
-                position: 'relative',
+                position: "relative",
                 p: 4,
                 pt: 2,
                 pb: (theme) => `calc(${theme.spacing(1)} + 6px)`,
               }}
             >
-              {image.title}
+              {image?.name}
               <ImageMarked className="MuiImageMarked-root" />
             </Typography>
           </Image>

@@ -45,7 +45,7 @@ export const TopNav = (props) => {
           spacing={2}
           sx={{
             minHeight: TOP_NAV_HEIGHT,
-            px: 2,
+            px: 1,
           }}
         >
           <Stack alignItems="center" direction="row" spacing={2}>

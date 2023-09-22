@@ -10,27 +10,30 @@ import { useDraggable } from "react-use-draggable-scroll";
 import { useGetThemeInfoMutation } from "src/features/themeData/themeDataApi";
 
 const Page = () => {
-  const [getThemeData, { data: themeData }] = useGetThemeInfoMutation()
+  const [getThemeData, { data: themeData }] = useGetThemeInfoMutation();
   const ref = useRef();
   const { events } = useDraggable(ref);
 
   useEffect(() => {
-    getThemeData()
-  }, [getThemeData])
+    getThemeData();
+  }, [getThemeData]);
 
-  const banners = themeData?.data?.theme_info?.slider_g5BCN7?.list
-  console.log("From Index", banners)
+  const banners = themeData?.data?.theme_info?.slider_g5BCN7?.list;
+  const categoryData = themeData?.data?.theme_info?.category_1JXLtF?.list;
+  console.log("From Index", themeData);
 
   return (
     <DashboardLayout>
       <Head>
         <title>Home | MoMagic</title>
       </Head>
-      {banners?.map((banner, i) => (
-        <Grid key={i} >
-          <img src={banner?.banner_url || "images/booksBanner1.jpeg"} />
-        </Grid>
-      ))}
+      <Grid>
+        {banners?.map((banner, i) => (
+          <Grid key={i}>
+            <img height="5%" width="100%" src={banner?.banner_url || "images/booksBanner1.jpeg"} />
+          </Grid>
+        ))}
+      </Grid>
       <Box
         component="main"
         sx={{
@@ -38,45 +41,61 @@ const Page = () => {
           py: 2,
         }}
       >
-        <Grid sx={{ margin: "10px" }}>
-          <Category />
+        <Grid sx={{display: "flex" }}>
+          <Category categoryData={categoryData} />
         </Grid>
         <Grid sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
           <Grid>
-            <Typography variant="h3" >Special Product</Typography>
-            <Grid sx={{ width: "100px", height: "5px", background: "red", margin: "10px 90px" }}></Grid>
+            <Typography variant="h3">Special Product</Typography>
+            <Grid
+              sx={{ width: "100px", height: "5px", background: "red", margin: "10px 90px" }}
+            ></Grid>
           </Grid>
         </Grid>
         <Grid sx={{ margin: "10px" }}>
-          <Grid sx={{ display: "flex", gap: "10px", margin: "10px 0px", alignItems: "center", justifyContent: "center" }}>
-            <Button sx={{ borderRadius: "0px" }} variant="outlined" size="small">Story</Button>
-            <Button sx={{ borderRadius: "0px" }} variant="contained" size="small">Academic</Button>
-          </Grid>
           <Grid>
             <ProductCard />
           </Grid>
-          <Grid sx={{ display: "flex", gap: "20px", marginTop: "50px" }}>
-            <Grid sx={{ width: "20%" }}>
+          <Grid>
+            <Grid>
               <Grid sx={{ display: "flex", alignItems: "center" }}>
-                <Button sx={{ borderRadius: "0px" }} variant="outlined" size="small">New Arrival</Button>
+                <Button
+                  sx={{ borderRadius: "0px"}}
+                  variant="outlined"
+                  size="small"
+                >
+                  New Arrival
+                </Button>
               </Grid>
               <Grid
                 sx={{
-                  display: "flex", overflowY: "scroll", width: "75%", height: "530px", margin: "10px", "::-webkit-scrollbar": {
+                  display: "flex",
+                  "::-webkit-scrollbar": {
                     display: "none",
-                  }, border: "1px solid gray"
+                  },
+                  border: "1px solid gray",
                 }}
                 ref={ref}
                 {...events}
               >
                 <NewArrival />
-                <NewArrival />
               </Grid>
-            </Grid >
-            <Grid sx={{ width: "70%" }}>
-              <Grid sx={{ display: "flex", gap: "10px", alignItems: "center", justifyContent: "center" }}>
-                <Button sx={{ borderRadius: "0px" }} variant="outlined" size="small">Story</Button>
-                <Button sx={{ borderRadius: "0px" }} variant="contained" size="small">Academic</Button>
+            </Grid>
+            <Grid>
+              <Grid
+                sx={{
+                  display: "flex",
+                  gap: "10px",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Button sx={{ borderRadius: "0px" }} variant="outlined" size="small">
+                  Story
+                </Button>
+                <Button sx={{ borderRadius: "0px" }} variant="contained" size="small">
+                  Academic
+                </Button>
               </Grid>
               <TagSection />
             </Grid>
@@ -84,6 +103,6 @@ const Page = () => {
         </Grid>
       </Box>
     </DashboardLayout>
-  )
+  );
 };
 export default Page;
