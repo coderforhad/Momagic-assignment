@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { Box, Button, Unstable_Grid2 as Grid, Typography } from "@mui/material";
+import { Box, Unstable_Grid2 as Grid, Typography } from "@mui/material";
 import { Layout as DashboardLayout } from "src/layouts/Home/layout";
 import Category from "src/components/category/Category";
 import ProductCard from "src/components/ProductCard";
@@ -26,9 +26,6 @@ const Page = () => {
   const newArrivalProducts = products?.data?.filter((product) =>
     product.tags.includes("NEW ARRIVALS")
   );
-  console.log("From Index", themeData);
-  console.log("products", products);
-  console.log("newArrivals", newArrivalProducts);
 
   return (
     <DashboardLayout>
@@ -85,7 +82,7 @@ const Page = () => {
             </Grid>
           </Grid>
           <Grid sx={{ py: 4 }}>
-            <TagSection />
+            <TagSection tagData={products?.data}/>
           </Grid>
         </Grid>
       </Box>

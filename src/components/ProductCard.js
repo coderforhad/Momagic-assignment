@@ -11,7 +11,6 @@ import Image from "next/image";
 import Pagination from "@mui/material/Pagination";
 
 export default function ProductCard({ products }) {
-  console.log("products", products);
   const [keyCat, setKeyCat] = React.useState("Thrillar");
   const handleClick = (keyword) => setKeyCat(keyword);
   const filteredProducts = keyCat
@@ -21,6 +20,7 @@ export default function ProductCard({ products }) {
   return (
     <>
       <Grid
+        container
         sx={{
           display: "flex",
           gap: "10px",
