@@ -1,17 +1,27 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { HYDRATE } from 'next-redux-wrapper';
+
 
 const initialState = {
-    themeData: [] 
+  themeData: [],
 };
 
 const themeSlice = createSlice({
-    name: "themeInfo",
-    initialState,
-    reducers: {
-        setThemeData(state, action) {
-            state.themeData = action.payload;
-        }
-    }
+  name: "themeInfo",
+  initialState,
+  reducers: {
+    setThemeData(state, action) {
+      state.themeData = action.payload;
+    },
+  },
+  extraReducers: {
+    [HYDRATE]: (state, action) => {
+      return (state = {
+        ...state,
+        ...action.payload,
+      });
+    },
+  },
 });
 
 export const { setThemeData } = themeSlice.actions;

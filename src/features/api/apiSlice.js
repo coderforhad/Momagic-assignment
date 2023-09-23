@@ -5,7 +5,7 @@ export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
     baseUrl: "https://api.webmanza.com",
-    prepareHeaders: async (headers, { getState, endpoint }) => {
+    prepareHeaders: async (headers, { endpoint, getState }) => {
       const token = localStorage.getItem("accessToken");
       if (token) {
         const accessToken = token.slice(1, -1);

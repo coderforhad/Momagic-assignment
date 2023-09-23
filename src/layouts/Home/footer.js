@@ -13,7 +13,6 @@ import EmailIcon from "@mui/icons-material/Email";
 import { useRouter } from "next/router";
 
 export default function Footer({ footerData }) {
-  console.log("footerData", footerData); //footerData?.body?.column1?.list?.text_oaT6SY?.content
   const content = footerData?.footer?.body?.column1?.list?.text_oaT6SY?.content;
   const socials = footerData?.footer?.body?.column1?.list?.social_Onen8u?.list;
   const company = footerData?.footer?.body?.column4?.list?.menubar_87srO8?.list;

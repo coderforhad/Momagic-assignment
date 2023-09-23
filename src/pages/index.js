@@ -8,13 +8,24 @@ import TagSection from "src/components/tag-section/TagSection";
 import { useRef, useEffect } from "react";
 import { useDraggable } from "react-use-draggable-scroll";
 import { useGetThemeInfoMutation } from "src/features/themeData/themeDataApi";
-import { useGetProductbyCategoryQuery } from "src/features/themeData/themeDataApi";
+import {
+  useGetProductbyCategoryQuery,
+  getProductbyCategory,
+} from "src/features/themeData/themeDataApi";
+import { useGetAccessTokenMutation } from "src/features/auth/authApi";
+import { wrapper } from "src/store/store";
 
-const Page = () => {
-  const [getThemeData, { data: themeData }] = useGetThemeInfoMutation();
-  const { data: products } = useGetProductbyCategoryQuery();
+const Page = ({ output }) => {
   const ref = useRef();
   const { events } = useDraggable(ref);
+  const [getAccessToken] = useGetAccessTokenMutation();
+  const [getThemeData, { data: themeData }] = useGetThemeInfoMutation();
+  const { data: products } = useGetProductbyCategoryQuery();
+
+  //Calling useEffect Hooks
+  useEffect(() => {
+    getAccessToken();
+  }, []);
 
   useEffect(() => {
     getThemeData();
@@ -82,7 +93,7 @@ const Page = () => {
             </Grid>
           </Grid>
           <Grid sx={{ py: 4 }}>
-            <TagSection tagData={products?.data}/>
+            <TagSection tagData={products?.data} />
           </Grid>
         </Grid>
       </Box>
@@ -90,3 +101,14 @@ const Page = () => {
   );
 };
 export default Page;
+
+export const getServerSideProps = wrapper.getServerSideProps((store) => async (context) => {
+  const output = await store.dispatch(getProductbyCategory.initiate(null));
+  // const {
+  //   results: [{ name: initialPokemon }],
+  // } = themeData;
+
+  console.log("State on server", output);
+
+  return { props: { } };
+});

@@ -1,11 +1,15 @@
 import { useCallback, useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { styled } from "@mui/material/styles";
-import { Container } from "@mui/material";
 import { SideNav } from "./side-nav";
 import { TopNav } from "./top-nav";
 import Footer from "./footer";
-import { useGetThemeInfoMutation } from "src/features/themeData/themeDataApi";
+import {
+  useGetThemeInfoMutation,
+  getRunningQueriesThunk,
+  getThemeInfo,
+  getProductbyCategory,
+} from "src/features/themeData/themeDataApi";
 
 const LayoutRoot = styled("div")(({ theme }) => ({
   display: "flex",
@@ -21,8 +25,8 @@ const LayoutContainer = styled("div")({
 });
 
 export const Layout = (props) => {
-  const [getThemeData, { data: themeData }] = useGetThemeInfoMutation();
   const { children } = props;
+  const [getThemeData, { data: themeData }] = useGetThemeInfoMutation();
   const pathname = usePathname();
   const [openNav, setOpenNav] = useState(false);
 
@@ -40,8 +44,6 @@ export const Layout = (props) => {
     handlePathnameChange();
   }, [pathname]);
 
-  console.log("themeData", themeData);
-
   return (
     <>
       <TopNav primaryMenu={themeData?.data} onNavOpen={() => setOpenNav(true)} />
@@ -58,3 +60,4 @@ export const Layout = (props) => {
     </>
   );
 };
+
