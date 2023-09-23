@@ -8,9 +8,11 @@ import TagSection from "src/components/tag-section/TagSection";
 import { useRef, useEffect } from "react";
 import { useDraggable } from "react-use-draggable-scroll";
 import { useGetThemeInfoMutation } from "src/features/themeData/themeDataApi";
+import { useGetProductbyCategoryQuery } from "src/features/themeData/themeDataApi";
 
 const Page = () => {
   const [getThemeData, { data: themeData }] = useGetThemeInfoMutation();
+  const { data: products } = useGetProductbyCategoryQuery();
   const ref = useRef();
   const { events } = useDraggable(ref);
 
@@ -18,9 +20,15 @@ const Page = () => {
     getThemeData();
   }, [getThemeData]);
 
-  const banners = themeData?.data?.theme_info?.slider_g5BCN7?.list;
+  const sliders = themeData?.data?.theme_info?.slider_g5BCN7?.list;
+  const banners = themeData?.data?.theme_info?.image_osrc9o;
   const categoryData = themeData?.data?.theme_info?.category_1JXLtF?.list;
+  const newArrivalProducts = products?.data?.filter((product) =>
+    product.tags.includes("NEW ARRIVALS")
+  );
   console.log("From Index", themeData);
+  console.log("products", products);
+  console.log("newArrivals", newArrivalProducts);
 
   return (
     <DashboardLayout>
@@ -28,7 +36,7 @@ const Page = () => {
         <title>Home | MoMagic</title>
       </Head>
       <Grid>
-        {banners?.map((banner, i) => (
+        {sliders?.map((banner, i) => (
           <Grid key={i}>
             <img height="5%" width="100%" src={banner?.banner_url || "images/booksBanner1.jpeg"} />
           </Grid>
@@ -41,7 +49,7 @@ const Page = () => {
           py: 2,
         }}
       >
-        <Grid sx={{display: "flex" }}>
+        <Grid sx={{ display: "flex" }}>
           <Category categoryData={categoryData} />
         </Grid>
         <Grid sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
@@ -52,53 +60,31 @@ const Page = () => {
             ></Grid>
           </Grid>
         </Grid>
-        <Grid sx={{ margin: "10px" }}>
+        <Grid>
+          <ProductCard products={products} />
+        </Grid>
+        <Grid>
           <Grid>
-            <ProductCard />
+            <img height="5%" width="100%" src={banners?.url || "images/booksBanner1.jpeg"} />
+          </Grid>
+        </Grid>
+        <Grid container sx={{ display: "flex"}}>
+          <Grid>
+            <Grid
+              sx={{
+                display: "flex",
+                "::-webkit-scrollbar": {
+                  display: "none",
+                },
+              }}
+              ref={ref}
+              {...events}
+            >
+              <NewArrival newArrival={newArrivalProducts} />
+            </Grid>
           </Grid>
           <Grid>
-            <Grid>
-              <Grid sx={{ display: "flex", alignItems: "center" }}>
-                <Button
-                  sx={{ borderRadius: "0px"}}
-                  variant="outlined"
-                  size="small"
-                >
-                  New Arrival
-                </Button>
-              </Grid>
-              <Grid
-                sx={{
-                  display: "flex",
-                  "::-webkit-scrollbar": {
-                    display: "none",
-                  },
-                  border: "1px solid gray",
-                }}
-                ref={ref}
-                {...events}
-              >
-                <NewArrival />
-              </Grid>
-            </Grid>
-            <Grid>
-              <Grid
-                sx={{
-                  display: "flex",
-                  gap: "10px",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <Button sx={{ borderRadius: "0px" }} variant="outlined" size="small">
-                  Story
-                </Button>
-                <Button sx={{ borderRadius: "0px" }} variant="contained" size="small">
-                  Academic
-                </Button>
-              </Grid>
-              <TagSection />
-            </Grid>
+            <TagSection />
           </Grid>
         </Grid>
       </Box>
