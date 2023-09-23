@@ -40,6 +40,8 @@ export const Layout = (props) => {
     handlePathnameChange();
   }, [pathname]);
 
+  console.log("themeData", themeData);
+
   return (
     <>
       <TopNav primaryMenu={themeData?.data} onNavOpen={() => setOpenNav(true)} />
@@ -52,7 +54,7 @@ export const Layout = (props) => {
       <LayoutRoot>
         <LayoutContainer>{children}</LayoutContainer>
       </LayoutRoot>
-      <Footer />
+      <Footer footerData={themeData?.data} />
     </>
   );
 };

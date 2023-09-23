@@ -2,7 +2,6 @@ import { usePathname } from "next/navigation";
 import PropTypes from "prop-types";
 import { Box, Grid, Divider, Drawer, Stack } from "@mui/material";
 import { Scrollbar } from "src/components/scrollbar";
-import { items } from "./config";
 import { SideNavItem } from "./side-nav-item";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 

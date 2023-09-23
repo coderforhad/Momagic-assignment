@@ -10,14 +10,20 @@ import IconButton from "@mui/material/IconButton";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import CallIcon from "@mui/icons-material/Call";
 import EmailIcon from "@mui/icons-material/Email";
+import { useRouter } from "next/router";
 
-export default function Footer() {
+export default function Footer({ footerData }) {
+  console.log("footerData", footerData); //footerData?.body?.column1?.list?.text_oaT6SY?.content
+  const content = footerData?.footer?.body?.column1?.list?.text_oaT6SY?.content;
+  const socials = footerData?.footer?.body?.column1?.list?.social_Onen8u?.list;
+  const company = footerData?.footer?.body?.column4?.list?.menubar_87srO8?.list;
+  const locations = footerData?.locations;
+  const Router = useRouter();
+
   return (
     <Box
       component="footer"
       sx={{
-        backgroundColor: (theme) =>
-          theme.palette.mode === "light" ? theme.palette.backgroundColor : theme.palette.grey[800],
         p: 6,
       }}
     >
@@ -27,23 +33,12 @@ export default function Footer() {
             About Us
           </Typography>
           <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 2 }}>
-            A bookshop is a specialized retail establishment that primarily sells books, both
-            fiction and non-fiction, across various genres and subjects. Often a sanctuary for
-            bibliophiles, a bookshop might also offer related items such as magazines, newspapers,
-            stationery, and sometimes music or movies.
+            {content?.slice(3, -4)}
           </Typography>
+          {/* {socials?.map(social=> ())} */}
           <Grid sx={{ cursor: "pointer", display: "flex" }} spacing={1}>
             <IconButton aria-label="Example">
               <FacebookIcon sx={{ fontSize: 50 }} color="primary" />
-            </IconButton>
-            <IconButton aria-label="Example">
-              <LinkedInIcon sx={{ fontSize: 50 }} color="primary" />
-            </IconButton>
-            <IconButton aria-label="Example">
-              <InstagramIcon sx={{ fontSize: 50, color: "#E1306C" }} />
-            </IconButton>
-            <IconButton aria-label="Example">
-              <YouTubeIcon fontSize="large" sx={{ fontSize: 50, color: "#FF0000" }} />
             </IconButton>
           </Grid>
         </Grid>
@@ -75,78 +70,47 @@ export default function Footer() {
           <Typography variant="h6" color="text.primary" gutterBottom>
             Contact Us
           </Typography>
-          <Typography
-            variant="body2"
-            color="text.secondary"
-            gutterBottom
-            sx={{ display: "flex", gap: "10px", margin: "10px 0px" }}
-          >
-            <LocationOnIcon />
-            Dhaka, Bangladesh
-          </Typography>
-          <Typography
-            variant="body2"
-            color="text.secondary"
-            gutterBottom
-            sx={{ display: "flex", gap: "10px", margin: "10px 0px" }}
-          >
-            <CallIcon />
-            01700705293
-          </Typography>
-          <Typography
-            variant="body2"
-            color="text.secondary"
-            gutterBottom
-            sx={{ display: "flex", gap: "10px", margin: "10px 0px" }}
-          >
-            <EmailIcon />
-            info@webmanza.com
-          </Typography>
+          {locations?.map((location) => (
+            <>
+              <Typography
+                variant="body2"
+                color="text.secondary"
+                gutterBottom
+                sx={{ display: "flex", gap: "10px", margin: "10px 0px" }}
+              >
+                <LocationOnIcon />
+                {location?.address}
+              </Typography>
+              <Typography
+                variant="body2"
+                color="text.secondary"
+                gutterBottom
+                sx={{ display: "flex", gap: "10px", margin: "10px 0px" }}
+              >
+                <CallIcon />
+                {location?.mobile}
+              </Typography>
+              <Typography
+                variant="body2"
+                color="text.secondary"
+                gutterBottom
+                sx={{ display: "flex", gap: "10px", margin: "10px 0px" }}
+              >
+                <EmailIcon />
+                {location?.email}
+              </Typography>
+            </>
+          ))}
         </Grid>
         <Grid item xs={12} sm={2.5}>
           <Typography variant="h6" color="text.primary" gutterBottom>
             COMPANY
           </Typography>
-          <Typography
-            variant="body2"
-            color="text.secondary"
-            gutterBottom
-            sx={{ display: "flex", gap: "10px", margin: "10px 0px" }}
-          >
-            About Us
-          </Typography>
-          <Typography
-            variant="body2"
-            color="text.secondary"
-            gutterBottom
-            sx={{ display: "flex", gap: "10px", margin: "10px 0px" }}
-          >
-            Contact Us
-          </Typography>
-          <Typography
-            variant="body2"
-            color="text.secondary"
-            gutterBottom
-            sx={{ display: "flex", gap: "10px", margin: "10px 0px" }}
-          >
-            FAQ
-          </Typography>
-          <Typography
-            variant="body2"
-            color="text.secondary"
-            gutterBottom
-            sx={{ display: "flex", gap: "10px", margin: "10px 0px" }}
-          >
-            Return Policy
-          </Typography>
-          <Typography
-            variant="body2"
-            color="text.secondary"
-            gutterBottom
-            sx={{ display: "flex", gap: "10px", margin: "10px 0px" }}
-          >
-            Tearms & Condisions
-          </Typography>
+          {company?.map((info) => (
+            <Grid key={info?.id}>
+              <Button onClick={() => Router.push(info?.path)}>{info?.text}</Button>
+            </Grid>
+          ))}
         </Grid>
       </Grid>
     </Box>
