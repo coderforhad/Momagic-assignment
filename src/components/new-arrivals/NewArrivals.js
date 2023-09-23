@@ -1,5 +1,4 @@
 import * as React from "react";
-import { useTheme } from "@mui/material/styles";
 import CardContent from "@mui/material/CardContent";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
@@ -14,7 +13,7 @@ export default function NewArrival({ newArrival }) {
   return (
     <Box>
       <Grid sx={{ display: "flex", alignItems: "center" }}>
-        <Button sx={{ borderRadius: "0px" }} variant="outlined" size="small">
+        <Button sx={{ borderRadius: "0px" }} size="large">
           New Arrival
         </Button>
       </Grid>

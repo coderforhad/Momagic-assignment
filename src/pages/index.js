@@ -49,7 +49,7 @@ const Page = () => {
           py: 2,
         }}
       >
-        <Grid sx={{ display: "flex" }}>
+        <Grid sx={{ display: "flex", p: 3 }}>
           <Category categoryData={categoryData} />
         </Grid>
         <Grid sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
@@ -68,7 +68,7 @@ const Page = () => {
             <img height="5%" width="100%" src={banners?.url || "images/booksBanner1.jpeg"} />
           </Grid>
         </Grid>
-        <Grid container sx={{ display: "flex"}}>
+        <Grid container sx={{ display: "flex" }}>
           <Grid>
             <Grid
               sx={{
@@ -76,6 +76,7 @@ const Page = () => {
                 "::-webkit-scrollbar": {
                   display: "none",
                 },
+                p: 3,
               }}
               ref={ref}
               {...events}
@@ -83,7 +84,7 @@ const Page = () => {
               <NewArrival newArrival={newArrivalProducts} />
             </Grid>
           </Grid>
-          <Grid>
+          <Grid sx={{ py: 4 }}>
             <TagSection />
           </Grid>
         </Grid>

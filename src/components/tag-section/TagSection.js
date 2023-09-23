@@ -34,30 +34,26 @@ export default function TagSection() {
           padding: "0px 50px",
         }}
       >
-        <Card sx={{ borderRadius: "10px", padding: "20px", border: "2px solid red" }}>
+        <Card sx={{ borderRadius: "10px", padding: "20px", margin: "10px" }}>
           <CardMedia
             component="img"
             sx={{ width: 150, height: "200px", textAlign: "center" }}
             image="https://source.unsplash.com/random/"
             alt="Live from space album cover"
           />
-            <CardContent sx={{ textAlign: "center" }}>
-              <Rating
-                name="half-rating"
-                defaultValue={2.5}
-                precision={0.5}
-              />
-              <Typography sx={{ fontSize: "14px" }} component="div">
-                Wrong Place, Wrong Time
-              </Typography>
-              <Typography
-                component="div"
-                sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}
-              >
-                <Image height={20} width={30} src={TakaSign} alt="moneySign"/>
-                600
-              </Typography>
-            </CardContent>
+          <CardContent sx={{ textAlign: "center" }}>
+            <Rating name="half-rating" defaultValue={2.5} precision={0.5} />
+            <Typography sx={{ fontSize: "14px" }} component="div">
+              Wrong Place, Wrong Time
+            </Typography>
+            <Typography
+              component="div"
+              sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}
+            >
+              <Image height={20} width={30} src={TakaSign} alt="moneySign" />
+              600
+            </Typography>
+          </CardContent>
         </Card>
       </Grid>
     </>

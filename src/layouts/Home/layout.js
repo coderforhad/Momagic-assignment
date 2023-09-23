@@ -1,50 +1,44 @@
-import { useCallback, useEffect, useState } from 'react';
-import { usePathname } from 'next/navigation';
-import { styled } from '@mui/material/styles';
-import { SideNav } from './side-nav';
-import { TopNav } from './top-nav';
-import Footer from './footer';
+import { useCallback, useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
+import { styled } from "@mui/material/styles";
+import { Container } from "@mui/material";
+import { SideNav } from "./side-nav";
+import { TopNav } from "./top-nav";
+import Footer from "./footer";
 import { useGetThemeInfoMutation } from "src/features/themeData/themeDataApi";
 
-const LayoutRoot = styled('div')(({ theme }) => ({
-  display: 'flex',
-  flex: '1 1 auto',
-  maxWidth: '100%',
+const LayoutRoot = styled("div")(({ theme }) => ({
+  display: "flex",
+  flex: "1 1 auto",
+  maxWidth: "100%",
 }));
 
-const LayoutContainer = styled('div')({
-  display: 'flex',
-  flex: '1 1 auto',
-  flexDirection: 'column',
-  width: '100%'
+const LayoutContainer = styled("div")({
+  display: "flex",
+  flex: "1 1 auto",
+  flexDirection: "column",
+  width: "100%",
 });
 
-export const Layout = ((props) => {
-  const [getThemeData, { data: themeData }] = useGetThemeInfoMutation()
+export const Layout = (props) => {
+  const [getThemeData, { data: themeData }] = useGetThemeInfoMutation();
   const { children } = props;
   const pathname = usePathname();
   const [openNav, setOpenNav] = useState(false);
 
-  const handlePathnameChange = useCallback(
-    () => {
-      if (openNav) {
-        setOpenNav(false);
-      }
-    },
-    [openNav]
-  );
+  const handlePathnameChange = useCallback(() => {
+    if (openNav) {
+      setOpenNav(false);
+    }
+  }, [openNav]);
 
   useEffect(() => {
-    getThemeData()
-  }, [getThemeData])
+    getThemeData();
+  }, [getThemeData]);
 
-  useEffect(
-    () => {
-      handlePathnameChange();
-    },
-
-    [pathname]
-  );
+  useEffect(() => {
+    handlePathnameChange();
+  }, [pathname]);
 
   return (
     <>
@@ -56,11 +50,9 @@ export const Layout = ((props) => {
         sideMenu={themeData?.data?.theme_info?.category_1JXLtF?.list}
       />
       <LayoutRoot>
-        <LayoutContainer>
-          {children}
-        </LayoutContainer>
+        <LayoutContainer>{children}</LayoutContainer>
       </LayoutRoot>
       <Footer />
     </>
   );
-});
+};
