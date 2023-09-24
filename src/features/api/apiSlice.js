@@ -9,7 +9,7 @@ export const apiSlice = createApi({
       const token = getState()?.auth.accessToken;
       console.log('token', token)
       const localToken = localStorage.getItem("accessToken").slice(1, -1);
-      if(token) {
+      if(token || localToken) {
         headers.set("Authorization", `Bearer ${token || localToken}`);
       }
       headers.set("Origin", "bookshop.webmanza.com");
