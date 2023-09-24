@@ -18,7 +18,7 @@ export default function NewArrival({ newArrival }) {
         </Button>
       </Grid>
       {newArrival?.map((newArr) => (
-        <Card sx={{ borderRadius: "0px", py: 1 }}>
+        <Card sx={{ borderRadius: "0px", py: 1 }} key={newArr?.id}>
           <div style={{ display: "flex" }}>
             <CardMedia
               component="img"

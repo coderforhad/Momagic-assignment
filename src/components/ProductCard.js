@@ -61,7 +61,10 @@ export default function ProductCard({ products }) {
               alt={pro?.thumbnail?.alt}
             />
             <CardContent>
-              <Rating name="half-rating" defaultValue={2.5} precision={0.5} />
+              <Rating name="half-rating" 
+                defaultValue={2.5} 
+                precision={0.5} 
+              />
               <Typography component="div">{pro?.name}</Typography>
               <Typography
                 component="div"
