@@ -38,6 +38,7 @@
     "react-redux": "^8.1.2",
     "react-use-draggable-scroll": "^0.4.7",
     "simplebar-react": "^3.2.1",
+    "typescript": "^5.2.2",
     "yup": "1.0.0"
   },
   "devDependencies": {
