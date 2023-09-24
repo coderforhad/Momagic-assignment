@@ -14,15 +14,8 @@ const themeSlice = createSlice({
       state.themeData = action.payload;
     },
   },
-  extraReducers: {
-    [HYDRATE]: (state, action) => {
-      return (state = {
-        ...state,
-        ...action.payload,
-      });
-    },
-  },
 });
 
 export const { setThemeData } = themeSlice.actions;
 export default themeSlice.reducer;
+export const selectCount = state => state.themeData;

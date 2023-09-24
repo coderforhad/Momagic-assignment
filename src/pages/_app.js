@@ -8,6 +8,7 @@ import { createTheme } from "src/theme";
 import { createEmotionCache } from "src/utils/create-emotion-cache";
 import "simplebar-react/dist/simplebar.min.css";
 import { wrapper } from "src/store/store";
+import { useEffect } from "react";
 
 const clientSideEmotionCache = createEmotionCache();
 function App({ Component, emotionCache = clientSideEmotionCache, pageProps }) {

@@ -8,21 +8,23 @@ import TagSection from "src/components/tag-section/TagSection";
 import { useRef, useEffect } from "react";
 import { useDraggable } from "react-use-draggable-scroll";
 import { useGetThemeInfoMutation } from "src/features/themeData/themeDataApi";
+import { useGetAccessTokenMutation } from "src/features/auth/authApi";
 import {
   useGetProductbyCategoryQuery,
   getProductbyCategory,
+  getRunningQueriesThunk,
 } from "src/features/themeData/themeDataApi";
-import { useGetAccessTokenMutation } from "src/features/auth/authApi";
 import { wrapper } from "src/store/store";
 
-const Page = ({ output }) => {
+const Page = () => {
   const ref = useRef();
   const { events } = useDraggable(ref);
-  const [getAccessToken] = useGetAccessTokenMutation();
   const [getThemeData, { data: themeData }] = useGetThemeInfoMutation();
+  const [getAccessToken] = useGetAccessTokenMutation();
   const { data: products } = useGetProductbyCategoryQuery();
 
   //Calling useEffect Hooks
+
   useEffect(() => {
     getAccessToken();
   }, []);
@@ -103,12 +105,7 @@ const Page = ({ output }) => {
 export default Page;
 
 export const getServerSideProps = wrapper.getServerSideProps((store) => async (context) => {
-  const output = await store.dispatch(getProductbyCategory.initiate(null));
-  // const {
-  //   results: [{ name: initialPokemon }],
-  // } = themeData;
-
-  console.log("State on server", output);
-
-  return { props: { } };
+  await store.dispatch(getProductbyCategory.initiate(undefined));
+  await Promise.all(store.dispatch(getRunningQueriesThunk()));
+  return { props: {} };
 });

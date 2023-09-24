@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { HYDRATE } from 'next-redux-wrapper';
 
 const initialState = {
-  accessToken: undefined,
+  accessToken: "",
 };
 
 const authSlice = createSlice({
@@ -10,6 +11,14 @@ const authSlice = createSlice({
   reducers: {
     setAccessToken(state, action) {
       state.accessToken = action.payload;
+    },
+  },
+  extraReducers: {
+    [HYDRATE]: (state, action) => {
+      return (state = {
+        ...state,
+        ...action.payload,
+      });
     },
   },
 });

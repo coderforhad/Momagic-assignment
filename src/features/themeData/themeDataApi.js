@@ -27,9 +27,11 @@ export const themeApi = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useGetThemeInfoMutation, useGetProductbyCategoryQuery } = themeApi;
-
 export const {
-  endpoints: { getProductbyCategory },
+  useGetThemeInfoMutation,
+  useGetProductbyCategoryQuery,
+  util: { getRunningQueriesThunk },
 } = themeApi;
+export const { getThemeInfo, getProductbyCategory } = themeApi.endpoints;
+
 export default themeApi;
